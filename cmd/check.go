@@ -15,11 +15,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var rate int
+var rate uint32
 
 func init() {
 	rootCmd.AddCommand(checkVpnCmd)
-	checkVpnCmd.Flags().IntVarP(&rate, "rate", "r", 1, "Specify the number of minutes interval you wish to poll")
+	checkVpnCmd.Flags().Uint32VarP(&rate, "rate", "r", 60, "Specify the number of seconds per interval you wish to poll")
 }
 
 var checkVpnCmd = &cobra.Command{
@@ -34,7 +34,7 @@ const (
 	timeout = 10 * time.Second
 )
 
-var pollingRate = 1 * time.Minute
+var pollingRate = 60 * time.Second
 
 func checkVpn(cmd *cobra.Command, args []string) {
 	interrupt := make(chan os.Signal, 1)
@@ -84,8 +84,8 @@ func checkVpn(cmd *cobra.Command, args []string) {
 				return
 			default:
 				response, err := client.Get(ipify)
-				if rate != 1 {
-					pollingRate = time.Minute * time.Duration(rate)
+				if rate != 60 {
+					pollingRate = time.Second * time.Duration(rate)
 				}
 				if err != nil {
 					handleHTTPError(err)
