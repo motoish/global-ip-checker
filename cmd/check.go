@@ -124,7 +124,11 @@ func checkVpn(cmd *cobra.Command, args []string) {
 
 func handleHTTPError(err error) {
 	if netErr, ok := err.(net.Error); ok && netErr.Timeout() {
-		fmt.Println("Something happened, and you got disconnected from the VPN")
+		err := beeep.Alert("Network Error", "Something happened, you either got disconnected or your global IP changed.", "assets/warning.png")
+		if err != nil {
+			fmt.Println("Error sending notification:", err)
+			os.Exit(1)
+		}
 	} else {
 		fmt.Println("Error getting IP:", err)
 	}
@@ -132,7 +136,7 @@ func handleHTTPError(err error) {
 
 func handleIPChange(ip string, client *http.Client) {
 	client.CloseIdleConnections()
-	err := beeep.Alert("VPN disconnected", "Please connect back to your VPN service, your IP address has changed", "assets/warning.png")
+	err := beeep.Alert("Global Ip missmatched", "Your current global ip and the global ip you told me to watch doesnt match", "assets/warning.png")
 	if err != nil {
 		fmt.Println("Error sending notification:", err)
 		os.Exit(1)
