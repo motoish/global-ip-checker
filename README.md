@@ -20,6 +20,18 @@ Should compile and give you the correct executable.
 
 But if you don't really care, you can just `go run main.go ~` and that should work fine as well.
 
+## Installation
+
+You can download installers for your current OS from the Releases.
+
+### Add to your path
+
+If your operating system is macOS, you could execute this command.
+
+```
+$ sudo ln -s /your/path/global-ip-checker /usr/local/bin/global-ip-checker
+```
+
 ## Usage
 
 ### Current ip
