@@ -1,0 +1,7 @@
+version: 1
+
+archives:
+  - format: tar.gz
+    format_overrides:
+      - goos: windows
+        format: zip
