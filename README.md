@@ -45,7 +45,7 @@ By default it will poll the `ipify` endpoint every minute (60 seconds)
 But you can specify the rate of polling with the `-r` flag
 
 ```
-$ global-ip-checker wathc "your.ip.address.here" -r 60
+$ global-ip-checker watch "your.ip.address.here" -r 60
 ```
 
 Rate is per seconds. So if you need to limit the polling to 5 minutes you need to set it for `300`
